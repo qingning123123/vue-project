@@ -9,7 +9,7 @@ const gridData = ref([
   { name: 'Jet Li', power: 8000 }
 ])
 const selected = ref('')  //选中的列
-const search =ref('')  //搜索的内容
+const search = ref('')  //搜索的内容
 const ascendingOrder = ref(true)  //升序状态
 
 //排序状态切换
@@ -26,7 +26,7 @@ const sortState = (value) => {
 const searchSortData = computed(() => {
   //搜索
   const searchData = gridData.value.filter((item) => {
-     return item.name.toLowerCase().includes(search.value.toLowerCase()) || String(item.power).includes(search.value)
+    return item.name.toLowerCase().includes(search.value.toLowerCase()) || String(item.power).includes(search.value)
   })
 
   //排序
@@ -34,7 +34,7 @@ const searchSortData = computed(() => {
     if (selected.value === 'name') {
       const nameA = a.name.toLowerCase()
       const nameB = b.name.toLowerCase()
-      if(nameA > nameB) {return ascendingOrder.value ? 1:-1}
+      if (nameA > nameB) { return ascendingOrder.value ? 1 : -1 }
       if (nameA < nameB) { return ascendingOrder.value ? -1 : 1 }
       return 0
     } else if (selected.value === 'power') {
@@ -46,29 +46,28 @@ const searchSortData = computed(() => {
 </script>
 
 <template>
-<div>
   <div>
-    Search
-    <input type="text" v-model="search">
-  </div>
-  <h5 v-if="searchSortData.length === 0">No matches found</h5>
-  <table v-else>
-    <thead>
-      <tr>
-        <th v-for="(value , index) in gridColumns" :key="index" @click="sortState(value)"
-        :class="{ color: selected === value }"
-        >
-          {{ value }}
-          <span class="arrow" :class="ascendingOrder && selected === value ? 'asc color' : 'dsc color'"></span>
-        </th>
+    <div>
+      Search
+      <input type="text" v-model="search">
+    </div>
+    <h5 v-if="searchSortData.length === 0">No matches found</h5>
+    <table v-else>
+      <thead>
+        <tr>
+          <th v-for="(value, index) in gridColumns" :key="index" @click="sortState(value)"
+            :class="{ color: selected === value }">
+            {{ value }}
+            <span class="arrow" :class="ascendingOrder && selected === value ? 'asc color' : 'dsc color'"></span>
+          </th>
+        </tr>
+      </thead>
+      <tr v-for="(value, index) in searchSortData" :key="index">
+        <td>{{ value.name }}</td>
+        <td>{{ value.power }}</td>
       </tr>
-    </thead>
-    <tr v-for="(value , index) in searchSortData" :key="index">
-      <td>{{ value.name }}</td>
-      <td>{{ value.power }}</td>
-    </tr>
-  </table>
-</div>
+    </table>
+  </div>
 </template>
 
 <style>
@@ -82,14 +81,14 @@ th {
   width: 140px;
   height: 40px;
   background-color: #42b983;
-  color: rgba(255, 255, 255,0.66);
+  color: rgba(255, 255, 255, 0.66);
   cursor: pointer;
   user-select: none;
   opacity: 1;
 }
 
 .color {
-  color: rgba(255, 255, 255,1);
+  color: rgba(255, 255, 255, 1);
 }
 
 td {

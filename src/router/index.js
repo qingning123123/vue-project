@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ModuleView from '../views/ModuleView.vue'
 import TodoView from '../views/TodoView.vue'
-import CartView from '@/views/CartView.vue'
+import CartView from '../views/CartView.vue'
+import SingleChoiceView from '../views/SingleChoiceView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,8 +18,13 @@ const router = createRouter({
     {
       path: '/cart',
       component: CartView,
+    },
+    {
+      path: '/sing',
+      component: SingleChoiceView,
     }
   ],
 })
+
 
 export default router
