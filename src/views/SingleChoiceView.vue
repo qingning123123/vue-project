@@ -94,12 +94,6 @@ setInterval(() => {
       <button @click="update">Update</button>
       <button @click="del">Delete</button>
     </div>
-
-    <nue-button @add="onAdd" color="red"></nue-button>
-    <input type="text" :value="message"
-    @input="(e) => message =e.target.value"
-    placeholder="edit me">
-    <div>Checked names: {{ message }}</div>
   </div>
 
 </template>
