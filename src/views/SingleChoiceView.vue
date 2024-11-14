@@ -1,7 +1,5 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
-import NueButton from '@/components/NueButton.vue'
-
 const names = ref(['Emil, Hans', 'Mustermann, Max', 'Tisch, Roman'])
 
 const search = ref('') //搜索的内容
@@ -59,12 +57,6 @@ const update = () => {
     }
   }
 }
-
-const message = ref('')
-
-setInterval(() => {
-  message.value++
-}, 1000)
 </script>
 
 <template>
