@@ -22,6 +22,10 @@ const router = createRouter({
     {
       path: '/sing',
       component: SingleChoiceView,
+    },
+    {
+      path: '/2Q32323',
+      component: SingleChoiceView,
     }
   ],
 })

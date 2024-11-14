@@ -1,7 +1,15 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { ref } from 'vue'
+import Pue from '@/components/Pue.vue'
+
+const searchName = ref(0)
+
 </script>
 
 <template>
-  <RouterView />
+  <div>
+    <Pue v-model="searchName"></Pue>
+  </div>
+
 </template>
+

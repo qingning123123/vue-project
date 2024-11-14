@@ -1,5 +1,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
+import NueButton from '@/components/NueButton.vue'
+
 const names = ref(['Emil, Hans', 'Mustermann, Max', 'Tisch, Roman'])
 
 const search = ref('') //搜索的内容
@@ -8,7 +10,9 @@ const last = ref('') //Surname的内容
 const selected = ref('') //选中的选项
 //筛选
 const filterNames = computed(() => {
-  return names.value.filter((item) => item.toLowerCase().startsWith(search.value.toLowerCase()))
+  return names.value.filter((item) =>
+    item.toLowerCase().substr(0, search.value.length) === search.value.toLowerCase()
+  )
 })
 
 watch(selected, (name) => {
@@ -37,7 +41,7 @@ const create = () => {
 //删除
 const del = () => {
   if (selected.value) {
-    const index = names.value.indexOf(selected.value)
+    const index = names.value.findIndex((name) => name === selected.value)
     if (index !== -1) {
       names.value.splice(index, 1)
       selected.value = last.value = first.value = ''
@@ -55,6 +59,20 @@ const update = () => {
     }
   }
 }
+
+function onAdd() {
+  console.log(111)
+}
+
+function onEdit() {
+  console.log(222)
+}
+
+const message = ref('')
+
+setInterval(() => {
+  message.value++
+}, 1000)
 </script>
 
 <template>
@@ -76,6 +94,12 @@ const update = () => {
       <button @click="update">Update</button>
       <button @click="del">Delete</button>
     </div>
+
+    <nue-button @add="onAdd" color="red"></nue-button>
+    <input type="text" :value="message"
+    @input="(e) => message =e.target.value"
+    placeholder="edit me">
+    <div>Checked names: {{ message }}</div>
   </div>
 
 </template>
