@@ -3,6 +3,7 @@ import ModuleView from '../views/ModuleView.vue'
 import TodoView from '../views/TodoView.vue'
 import CartView from '../views/CartView.vue'
 import SingleChoiceView from '../views/SingleChoiceView.vue'
+import SingleC from '../views/SingleC.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,8 +25,8 @@ const router = createRouter({
       component: SingleChoiceView,
     },
     {
-      path: '/2Q32323',
-      component: SingleChoiceView,
+      path: '/sing2',
+      component: SingleC,
     }
   ],
 })
