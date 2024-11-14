@@ -1,58 +1,52 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
+import cartInput from '@/components/cartInput.vue'
 
 const goodsList = ref([
   {
-      name: "Casio/卡西欧 EX-TR350",
-      img: "Casio-1.jpg",
-      price: 1,
-      num: 1,
-      id: Math.random(),
-      checked: false,
-    },
-    {
-      name: "Canon/佳能 powerShotSX50 HS",
-      img: "Canon-2.jpg",
-      price: 2,
-      num: 1,
-      id: Math.random(),
-      checked: false,
-    },
-    {
-      name: "Sony/索尼 DSC-WX300",
-      img: "Sony-3.jpg",
-      price: 3,
-      num: 1,
-      id: Math.random(),
-      checked: false,
-    },
-    {
-      name: "Fujifi1m/富士 instax mini 25",
-      img: "Fujifi1m-4.jpg",
-      price: 4,
-      num: 1,
-      id: Math.random(),
-      checked: false,
-    },
-    {
-      name: "康奈尔ssr-p",
-      img: "ssr-5.jpg",
-      price: 5,
-      num: 1,
-      id: Math.random(),
-      checked: false,
-    }
+    name: "Casio/卡西欧 EX-TR350",
+    img: "Casio-1.jpg",
+    price: 1,
+    num: 1,
+    id: Math.random(),
+    checked: false,
+  },
+  {
+    name: "Canon/佳能 powerShotSX50 HS",
+    img: "Canon-2.jpg",
+    price: 2,
+    num: 1,
+    id: Math.random(),
+    checked: false,
+  },
+  {
+    name: "Sony/索尼 DSC-WX300",
+    img: "Sony-3.jpg",
+    price: 3,
+    num: 1,
+    id: Math.random(),
+    checked: false,
+  },
+  {
+    name: "Fujifi1m/富士 instax mini 25",
+    img: "Fujifi1m-4.jpg",
+    price: 4,
+    num: 1,
+    id: Math.random(),
+    checked: false,
+  },
+  {
+    name: "康奈尔ssr-p",
+    img: "ssr-5.jpg",
+    price: 5,
+    num: 1,
+    id: Math.random(),
+    checked: false,
+  }
 ])
 
 const selectAll = ref(false)
 const showSelected = ref(false)
-
-//数量减
-const red = (item) => {
-  if (item.num > 1) {
-    return item.num--
-  }
-}
 
 //删除
 const del = (id) => {
@@ -64,11 +58,11 @@ const del = (id) => {
 
 // 全选/取消全选
 const getAllSelect = () => {
-  goodsList.value = goodsList.value.map(item =>({...item , checked: selectAll.value}))
+  goodsList.value = goodsList.value.map(item => ({ ...item, checked: selectAll.value }))
 }
 
 //单个复选框监听
-watch(goodsList , (item) => {
+watch(goodsList, (item) => {
   selectAll.value = goodsList.value.every(item => item.checked)
 }, { deep: true })
 
@@ -79,12 +73,12 @@ const selectedGoods = computed(() => {
 
 //计算总价
 const SumUp = computed(() => {
-  return selectedGoods.value.reduce((total,item) => total + item.price * item.num, 0)
+  return selectedGoods.value.reduce((total, item) => total + item.price * item.num, 0)
 })
 
 // 计算选中的商品数量
 const getTotality = computed(() => {
-  return selectedGoods.value.reduce((total,item) => total + item.num, 0)
+  return selectedGoods.value.reduce((total, item) => total + item.num, 0)
 })
 
 // 删除选中商品
@@ -109,7 +103,7 @@ const newProduct = ref({
 //清空弹窗信息
 const resetForm = () => {
   newProduct.value = { name: '', img: '', price: '', num: '', id: Math.random(), checked: false }
-};
+}
 
 // 打开新增商品弹窗
 const openAddPopup = () => {
@@ -141,7 +135,7 @@ const saveProduct = () => {
   if (isFormComplete.value) {
     if (currentProduct.value === 2) {  // 更新商品
       const index = goodsList.value.findIndex(item => item.id === newProduct.value.id)
-        goodsList.value[index] = { ...newProduct.value }
+      goodsList.value[index] = { ...newProduct.value }
     } else {  // 新增商品
       newProduct.value.id = Math.random()
       goodsList.value.push({ ...newProduct.value })
@@ -167,7 +161,7 @@ const saveProduct = () => {
           <th>操作</th>
         </tr>
       </thead>
-      <tr v-for="(value,index) in goodsList" :key="index">
+      <tr v-for="(value, index) in goodsList" :key="index">
         <td><input type="checkbox" v-model="value.checked"></td>
         <td>
           <img :src="'../assets/cart_images/' + value.img">
@@ -175,11 +169,12 @@ const saveProduct = () => {
         </td>
         <td>{{ value.price }}</td>
         <td>
-          <button @click="red(value)">-</button>
-          {{ value.num }}
-          <button @click="value.num++">+</button>
+          <cartInput v-model="value.num" @red="value.num = $event - 1" @add="value.num = $event + 1"></cartInput>
+          <!-- 自定义事件的名后面可以等于2个形式，
+          1.函数。函数会接收一个参数，参数来源于组件内部emit触发事件的时候，传递的第二个参数，第一个参数是事件的名字。
+          2.JS语句，语句中可以使用一个变量$event，来自于组件内部emit触发这个事件的时候传递的值，传递的第二个参数。 -->
         </td>
-        <td>{{value.price * value.num}}</td>
+        <td>{{ value.price * value.num }}</td>
         <td>
           <button @click="del(value.id)">删除</button>
           <button @click="openEditPopup(value)">编辑</button>
@@ -187,10 +182,10 @@ const saveProduct = () => {
       </tr>
     </table>
     <div>
-      <button>合计：{{SumUp}}</button>
+      <button>合计：{{ SumUp }}</button>
       <input type="checkbox" v-model="selectAll" @change="getAllSelect">全选
       <button :disabled="getTotality === 0" @click="showSelected = !showSelected">
-        已选择{{getTotality}}件商品
+        已选择{{ Number(getTotality) }}件商品
         <span v-if="showSelected">⬇️</span>
         <span v-else>⬆️</span>
       </button>
@@ -205,7 +200,7 @@ const saveProduct = () => {
         </ul>
       </div>
     </div>
-        <!-- 弹窗 -->
+    <!-- 弹窗 -->
     <div v-if="informationPopup" class="popUp">
       <div>
         名称：<input type="text" v-model="newProduct.name">
@@ -238,6 +233,7 @@ const saveProduct = () => {
   -webkit-tap-highlight-color: transparent;
   flex-direction: column;
 }
+
 .popUp {
   position: absolute;
   top: 23%;
@@ -261,6 +257,7 @@ const saveProduct = () => {
       display: block;
       margin-left: 5px;
     }
+
     .btn_sure_two {
       display: block;
       margin-left: 5px;
@@ -334,6 +331,4 @@ table {
 .show {
   display: block;
 }
-
-
 </style>

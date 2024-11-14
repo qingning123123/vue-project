@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
-import ThreeButton from '@/components/ThreeButton.vue';
+import ThreeButton from '@/components/ThreeButton.vue'
+import PInpu from '@/components/PInpu.vue';
 const names = ref(['Emil, Hans', 'Mustermann, Max', 'Tisch, Roman'])
 
 const search = ref('') //搜索的内容
@@ -62,7 +63,8 @@ const update = () => {
 
 <template>
   <div class="dif">
-    <input type="text" placeholder="Filter prefix" v-model="search">
+    <!-- <input type="text" placeholder="Filter prefix" v-model="search"> -->
+    <PInpu v-model="search"></PInpu>
     <div class="flex">
       <select v-model="selected">
         <option v-for="(value, index) in filterNames" :key="index">{{ value }}</option>
@@ -73,11 +75,6 @@ const update = () => {
         Surname:
         <input type="text" v-model="last">
       </div>
-    </div>
-    <div>
-      <button @click="create">create</button>
-      <button @click="update">Update</button>
-      <button @click="del">Delete</button>
     </div>
     <ThreeButton @create="create" @update="update" @del="del"></ThreeButton>
   </div>
@@ -105,6 +102,4 @@ select {
   height: 30px;
   margin: 10px;
 }
-
-
 </style>
