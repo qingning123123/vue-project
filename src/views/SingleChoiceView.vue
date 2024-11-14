@@ -60,14 +60,6 @@ const update = () => {
   }
 }
 
-function onAdd() {
-  console.log(111)
-}
-
-function onEdit() {
-  console.log(222)
-}
-
 const message = ref('')
 
 setInterval(() => {
