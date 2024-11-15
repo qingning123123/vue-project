@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, effectScope, ref, watch } from 'vue'
 import cartInput from '@/components/cartInput.vue'
 
 const goodsList = ref([
@@ -55,6 +55,12 @@ const del = (id) => {
     goodsList.value.splice(index, 1)
   }
 }
+
+// function red (value, event) {
+//   if (event > 1) {
+//     return value.num = event -1
+//   }
+// }
 
 // 全选/取消全选
 const getAllSelect = () => {
@@ -169,7 +175,8 @@ const saveProduct = () => {
         </td>
         <td>{{ value.price }}</td>
         <td>
-          <cartInput v-model="value.num" @red="value.num = $event - 1" @add="value.num = $event + 1"></cartInput>
+          <!-- <cartInput v-model="value.num" @red="red(value,event)" @add="value.num = $event + 1"></cartInput> -->
+          <cartInput v-model="value.num"></cartInput>
           <!-- 自定义事件的名后面可以等于2个形式，
           1.函数。函数会接收一个参数，参数来源于组件内部emit触发事件的时候，传递的第二个参数，第一个参数是事件的名字。
           2.JS语句，语句中可以使用一个变量$event，来自于组件内部emit触发这个事件的时候传递的值，传递的第二个参数。 -->
