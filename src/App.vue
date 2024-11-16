@@ -4,7 +4,5 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div id="qpp">
-    <RouterView></RouterView>
-  </div>
+  <RouterView></RouterView>
 </template>

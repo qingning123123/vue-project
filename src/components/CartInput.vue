@@ -10,7 +10,7 @@ const props = defineProps({
   modelValue: Number,
 })
 
-const emit = defineEmits(['update:modelValue', 'red', 'add'])
+const emit = defineEmits(['update:modelValue'])
 
 function test(e) {
   emit('update:modelValue', e.target.value)

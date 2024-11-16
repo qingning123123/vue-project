@@ -4,6 +4,8 @@ import TodoView from '../views/TodoView.vue'
 import CartView from '../views/CartView.vue'
 import SingleChoiceView from '../views/SingleChoiceView.vue'
 import SingleC from '../views/SingleC.vue'
+import RuZhiView from '@/views/RuZhiView.vue'
+import Test from '@/views/Test.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,8 +29,16 @@ const router = createRouter({
     {
       path: '/sing2',
       component: SingleC,
-    }
-  ],
+    },
+    {
+      path: '/ruzhi',
+      component: RuZhiView,
+    },
+    {
+      path: '/test',
+      component: Test,
+    },
+  ]
 })
 
 

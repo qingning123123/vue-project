@@ -81,7 +81,7 @@ const update = () => {
 
 </template>
 
-<style>
+<style scoped>
 .dif {
   display: flex;
   flex-direction: column;

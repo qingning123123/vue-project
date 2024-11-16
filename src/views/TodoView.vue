@@ -146,7 +146,7 @@ watch(todoList, (newvalue) => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .completed {
   text-decoration: line-through;
 }
