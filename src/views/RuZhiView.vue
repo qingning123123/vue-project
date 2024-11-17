@@ -14,7 +14,7 @@ import RuUpto from '@/components/RuUpto.vue'
     <!-- 头部 -->
     <BoxTop></BoxTop>
     <!-- 主体 -->
-    <div class="f1 w mt25">
+    <div class="main f1 w mt25">
       <!-- 左侧 -->
       <div class="w720 mr20 fdc gap10 lh26">
         <!-- 发布动态 -->

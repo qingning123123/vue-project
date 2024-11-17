@@ -29,7 +29,7 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #fff !important;
+  background-color: #fff ;
   z-index: 1000;
 }
 
