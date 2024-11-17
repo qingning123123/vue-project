@@ -1,5 +1,5 @@
 <template>
-  <div v-for="item in ruarticleList.list" :key="item.feed_id">
+  <div v-for="item in singleQtList" :key="item.feed_id">
     <!-- 图文A -->
     <div class="bgc2 br8 pr25 pt25 pl25 pb12" v-if="item.feed_type === 'A'">
       <div class="jsc">
@@ -95,6 +95,41 @@
 <style scoped></style>
 
 <script setup>
-import ruarticleList from '@/views/ruarticleList';
+import axios from 'axios'
+import { onMounted, onUnmounted, ref } from 'vue'
+onMounted(() => {
+  getQtList(1)
+  window.addEventListener('scroll', handleScroll) // 监听滚动事件
+})
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll) // 组件卸载时移除监听
+})
 
+const singleQtList = ref([])
+const pageNum = ref(1) // 当前页码
+
+function getQtList() {
+  axios.get('https://dev.ruzhi.com/api/feed/list/recommend', {
+    params: {
+      page_num: pageNum.value,
+      page_size: 10,
+      start_index: 16,
+    }
+  }).then(res => {
+    if (res.status === 200 && res.data) {
+      singleQtList.value = [...singleQtList.value, ...res.data.list] // 追加新数据
+      console.log(singleQtList.value)
+    }
+  })
+}
+//页码增加，数据更新函数
+function handleScroll() {
+  const scrollPosition = window.innerHeight + window.scrollY  //当前滚动位置
+  const bottomPosition = document.documentElement.offsetHeight  //页面底部位置
+
+  if (scrollPosition >= bottomPosition - 10) {
+    pageNum.value += 1 // 增加页码
+    getQtList() // 获取下一页数据
+  }
+}
 </script>
