@@ -1,5 +1,5 @@
 <template>
-  <div class="fdc gap12" v-for="item in singPositionContent" :key="item.job_id">
+  <div class="fdc gap12" v-for="item in props.content" :key="item.job_id">
     <!-- 职位1 任务 -->
     <div class="flex bgc2 br8 p16" v-if="item.job_type == '6'">
       <div class="w390">
@@ -163,42 +163,11 @@
 </style>
 
 <script setup>
-import axios from 'axios'
-import { onMounted, onUnmounted, ref } from 'vue'
-onMounted(() => {
-  getPositionContent(1)
-  window.addEventListener('scroll', handleScroll) // 监听滚动事件
-})
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll) // 组件卸载时移除监听
+const props = defineProps({
+  content: Array,
 })
 
-const singPositionContent = ref([])
-const pageNum = ref(1) // 当前页码
+console.log(props.content)
 
-// 搜索关键字
-const searchKeyword = ref('')  // 搜索关键字
-
-function getPositionContent() {
-  axios.get('//dev.ruzhi.com/api/job/web/square/list', {
-    params: {
-      page_num: pageNum.value,
-      page_size: 10,
-    }
-  }).then(res => {
-    if (res.status === 200 && res.data) {
-      singPositionContent.value = [...singPositionContent.value, ...res.data.list] // 追加新数据
-    }
-  })
-}
-//页码增加，数据更新函数
-function handleScroll() {
-  const scrollPosition = window.innerHeight + window.scrollY  //当前滚动位置
-  const bottomPosition = document.querySelector('.main').offsetHeight  //页面底部位置
-  if (scrollPosition >= bottomPosition - 10) {
-    pageNum.value += 1 // 增加页码
-    getPositionContent() // 获取下一页数据
-  }
-}
 
 </script>
