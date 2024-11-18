@@ -1,6 +1,7 @@
 <script setup>
 import BoxTop from '@/components/BoxTop.vue'
 import RuPositionSearch from '@/views/job/components/RuPositionSearch.vue'
+import RuPositionFilter from '@/views/job/components/RuPositionFilter.vue'
 import RuPositionContent from '@/views/job/components/RuPositionContent.vue'
 import RuAbout from '@/components/RuAbout.vue'
 import RuPositionPlacard from '@/views/job/components/RuPositionPlacard.vue'
@@ -17,14 +18,17 @@ onUnmounted(() => {
 
 const singPositionContent = ref([])
 const pageNum = ref(1) // 当前页码
-
-// 搜索关键字
-// const searchKeyword = ref('')  // 搜索关键字
+const job_title = ref('') // 搜索
+const job_search = ref('') // 城市
+const job_type = ref('') // 类型
 
 function getPositionContent() {
   axios.get('//dev.ruzhi.com/api/job/web/square/list', {
     params: {
       page_num: pageNum.value,
+      job_title: job_title.value,   //搜索
+      job_search: job_search.value,  //城市
+      job_type: job_type.value, //类型
       page_size: 10,
     }
   }).then(res => {
@@ -43,7 +47,6 @@ function handleScroll() {
   }
 }
 
-
 </script>
 
 <template>
@@ -57,7 +60,9 @@ function handleScroll() {
       <!-- 左侧 -->
       <div class="w720 mr20 fdc gap10 lh26">
         <!-- 搜索 -->
-        <RuPositionSearch></RuPositionSearch>
+        <RuPositionSearch v-model="job_title"></RuPositionSearch>
+        <!-- 筛选 -->
+        <RuPositionFilter></RuPositionFilter>
         <!-- 岗位内容 -->
         <RuPositionContent :content="singPositionContent"></RuPositionContent>
       </div>
