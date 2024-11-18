@@ -1,9 +1,9 @@
 <script setup>
 import BoxTop from '@/components/BoxTop.vue'
-import RuPositionSearch from '@/components/RuPositionSearch.vue'
-import RuPositionContent from '@/components/RuPositionContent.vue'
+import RuPositionSearch from '@/views/job/components/RuPositionSearch.vue'
+import RuPositionContent from '@/views/job/components/RuPositionContent.vue'
 import RuAbout from '@/components/RuAbout.vue'
-import RuPositionPlacard from '@/components/RuPositionPlacard.vue'
+import RuPositionPlacard from '@/views/job/components/RuPositionPlacard.vue'
 
 import axios from 'axios'
 import { onMounted, onUnmounted, ref } from 'vue'
