@@ -101,9 +101,9 @@ onMounted(() => {
   getQtList(1)
   window.addEventListener('scroll', handleScroll) // 监听滚动事件
 })
-// onUnmounted(() => {
-//   window.removeEventListener('scroll', handleScroll) // 组件卸载时移除监听
-// })
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll) // 组件卸载时移除监听
+})
 
 const singleQtList = ref([])
 const pageNum = ref(1) // 当前页码

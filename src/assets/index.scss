@@ -53,6 +53,26 @@ input {
   color: #915907;
 }
 
+.col6 {
+  color: #e4393c;
+}
+
+.col7 {
+  color: #999;
+}
+
+.col8 {
+  color: #4296fd;
+}
+
+.col9 {
+  color: #ff9a43;
+}
+
+.col10 {
+  color: #0AC300;
+}
+
 .bgc1 {
   background-color: #f7f9fb;
 }
@@ -73,6 +93,14 @@ input {
   background-color: #0064A3;
 }
 
+.bgc6 {
+  background-color: #89BADC;
+}
+
+.bgc7 {
+  background-color: #f5f7f9;
+}
+
 .box {
   height: 100vh;
 }
@@ -88,6 +116,22 @@ input {
 
 .bd1 {
   border: 1px solid #a4a5a5;
+}
+
+.bd2 {
+  border: 1px solid #0064a3;
+}
+
+.bd8 {
+  border: 1px solid #4296fd;
+}
+
+.bd9 {
+  border: 1px solid #ff9a43;
+}
+
+.bd10 {
+  border: 1px solid #0AC300;
 }
 
 .bdt {
@@ -438,15 +482,15 @@ img {
   }
 }
 
-@for $i from 1 through 100 {
+@for $i from 1 through 500 {
   .maw#{$i} {
-    max-width: 1% * $i;
+    max-width: 1px * $i;
   }
 }
 
-@for $i from 1 through 100 {
+@for $i from 1 through 500 {
   .miw#{$i} {
-    min-width: 1% * $i;
+    min-width: 1px * $i;
   }
 }
 
