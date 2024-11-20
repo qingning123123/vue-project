@@ -7,7 +7,7 @@ import RuAbout from '@/components/RuAbout.vue'
 import RuPositionPlacard from '@/views/job/components/RuPositionPlacard.vue'
 
 import axios from 'axios'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 onMounted(() => {
   getPositionContent(1)
   window.addEventListener('scroll', handleScroll) // 监听滚动事件
@@ -22,7 +22,14 @@ const job_title = ref('') // 搜索
 const job_search = ref('') // 城市
 const job_type = ref('') // 类型
 
-function getPositionContent() {
+
+
+function getPositionContent(reset = false) {
+  if (reset) {
+    singPositionContent.value = [] // 清空已有数据
+    pageNum.value = 1 // 重置页码
+  }
+  console.log(111)
   axios.get('//dev.ruzhi.com/api/job/web/square/list', {
     params: {
       page_num: pageNum.value,
@@ -59,10 +66,12 @@ function handleScroll() {
     <div class="main f1 w mt12">
       <!-- 左侧 -->
       <div class="w720 mr20 fdc gap10 lh26">
-        <!-- 搜索 -->
-        <RuPositionSearch v-model="job_title"></RuPositionSearch>
-        <!-- 筛选 -->
-        <RuPositionFilter></RuPositionFilter>
+        <div class="br8 bgc2 pt20 pb20 pr25 pl25">
+          <!-- 搜索 -->
+          <RuPositionSearch v-model="job_title" @search="getPositionContent(true)"></RuPositionSearch>
+          <!-- 筛选 -->
+          <RuPositionFilter v-model:search="job_search" v-model:type="job_type"></RuPositionFilter>
+        </div>
         <!-- 岗位内容 -->
         <RuPositionContent :content="singPositionContent"></RuPositionContent>
       </div>
